@@ -7,9 +7,21 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
+const SITE_URL = "https://notehub.app";
+
 export const metadata: Metadata = {
   title: "NoteHub",
   description: "NoteHub app",
+  openGraph: {
+    title: "NoteHub",
+    description: "NoteHub app",
+    url: SITE_URL,
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      },
+    ],
+  },
 };
 
 const roboto = Roboto({

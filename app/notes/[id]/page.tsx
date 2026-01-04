@@ -3,6 +3,9 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 import { fetchNoteById } from "@/lib/api";
 import NoteDetailsClient from "./NoteDetails.client";
 
+const SITE_URL = "https://notehub.app";
+const OG_IMAGE = "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg";
+
 export async function generateMetadata({
   params,
 }: {
@@ -13,14 +16,34 @@ export async function generateMetadata({
   try {
     const note = await fetchNoteById(id);
 
+    const title = `NoteHub | ${note.title}`;
+    const description = note.content ? note.content.slice(0, 120) : "Note details";
+    const url = `${SITE_URL}/notes/${id}`;
+
     return {
-      title: `NoteHub | ${note.title}`,
-      description: note.content ? note.content.slice(0, 120) : "Note details",
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        url,
+        images: [{ url: OG_IMAGE }],
+      },
     };
   } catch {
+    const title = "NoteHub | Note";
+    const description = "Note details";
+    const url = `${SITE_URL}/notes/${id}`;
+
     return {
-      title: "NoteHub | Note",
-      description: "Note details",
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        url,
+        images: [{ url: OG_IMAGE }],
+      },
     };
   }
 }

@@ -6,6 +6,9 @@ import type { Note } from "@/types/note";
 
 const PER_PAGE = 12;
 
+const SITE_URL = "https://notehub.app";
+const OG_IMAGE = "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg";
+
 const TAG_TITLES: Record<string, string> = {
   all: "All notes",
   todo: "Todo",
@@ -25,9 +28,19 @@ export async function generateMetadata({
 
   const tagTitle = TAG_TITLES[raw] ?? raw;
 
+  const title = `NoteHub | ${tagTitle}`;
+  const description = `Notes filtered by: ${tagTitle}`;
+  const url = `${SITE_URL}/notes/filter/${raw}`;
+
   return {
-    title: `NoteHub | ${tagTitle}`,
-    description: `Notes filtered by: ${tagTitle}`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      images: [{ url: OG_IMAGE }],
+    },
   };
 }
 
